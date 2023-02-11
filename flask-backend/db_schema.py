@@ -114,7 +114,7 @@ def dbinit():
         User("Oliver", hashlib.sha256("Oliver".encode()).hexdigest(), secrets.token_hex(16), "Oliver@gmail.com"),
         User("Raees", hashlib.sha256("Raees".encode()).hexdigest(), secrets.token_hex(16), "Raees@gmail.com")
         ]
-
+    
     try:
         session.add_all(user_list)
         session.commit()
