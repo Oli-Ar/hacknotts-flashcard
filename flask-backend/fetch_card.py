@@ -9,8 +9,7 @@ GIS = GoogleImagesSearch(os.environ['GOOGLE_API_KEY'], os.environ['GOOGLE_SEARCH
 class Card:
     def __init__(self, word, origin, target):
         self.origin = word
-        (self.target,
-         self.pronounciation) = self.get_word_data(word) 
+        self.target, self.pronounciation = self.get_word_data(word) 
         self.image_url = self.get_image(self.target)
         self.lang = f"{origin}-{target}"
 
@@ -28,7 +27,7 @@ class Card:
         audio_code = response.json()[0]['hwi']['prs'][0]['sound']['audio']
         subfolder = re.match(r"^(bix|gg|[^a-zA-Z]+|.)", audio_code).group(1)
         pronounciation = f"https://media.merriam-webster.com/audio/prons/es/me/mp3/{subfolder}/{audio_code}.mp3"
-        return (translation, pronounciation)
+        return translation, pronounciation
     
     @staticmethod
     def get_image(word):
