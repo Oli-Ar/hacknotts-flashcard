@@ -1,7 +1,5 @@
-# from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Boolean, Column, create_engine, DateTime, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, sessionmaker, declarative_base
 
 import hashlib
 import secrets
@@ -153,7 +151,6 @@ def dbinit(path):
 
 if __name__ == "__main__":
     path = Path(environ["VIRTUAL_ENV"]).parent / "flask-backend/database.db"
-    print(path)
     if not path.is_file():
         dbinit(path)
     else:
