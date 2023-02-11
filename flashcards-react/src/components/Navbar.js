@@ -1,9 +1,9 @@
 import React from 'react'
-import './Header.css'
+import './Navbar.css'
 
-export default function NavBar () {
+export default function Navbar () {
     return (
-        <nav className="container">
+        <nav className="nav--container">
             <h1 className="nav--titleText underline font-bold text-3xl">
                 Flashcards App
             </h1>

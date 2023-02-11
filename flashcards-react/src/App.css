@@ -3,5 +3,14 @@
   background-color: #ffc048;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: fixed;
 }
-
+.mainContent{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15vh;
+}
