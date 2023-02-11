@@ -24,7 +24,5 @@
 
 # Python
 /env
+/flask-backend/database.db
 
-
-#database
-flask-backend/database.db
