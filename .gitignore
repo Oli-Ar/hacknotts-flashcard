@@ -24,3 +24,7 @@
 
 # Python
 /env
+
+
+#test files
+/flask-backend/pythonTestThing.py

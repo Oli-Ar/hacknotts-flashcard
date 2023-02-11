@@ -4,8 +4,9 @@ app = Flask(__name__)
 @app.route("/data")
 def hello():
   return {
-    "test": "test"
+    "test" : "test"
   }
 
 if __name__ == "__main__":
   app.run()
+
