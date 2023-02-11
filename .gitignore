@@ -1,0 +1,26 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/flashcards-react/node_modules
+/flashcards-react/.pnp
+/flashcards-react/.pnp.js
+
+# testing
+/flashcards-react/coverage
+
+# production
+/flashcards-react/build
+
+# misc
+/flashcards-react/.DS_Store
+/flashcards-react/.env.local
+/flashcards-react/.env.development.local
+/flashcards-react/.env.test.local
+/flashcards-react/.env.production.local
+
+/flashcards-react/npm-debug.log*
+/flashcards-react/yarn-debug.log*
+/flashcards-react/yarn-error.log*
+
+# python
+/flask-backend/env
