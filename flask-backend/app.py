@@ -1,65 +1,37 @@
-from flask import Flask
-from flask_login import login_user, current_user, logout_user, login_required
+from db_schema import Flashcard
+
+from flask import Flask, request
+from flask_login import current_user, logout_user
+
+from sqlalchemy.orm import sessionmaker, class_mapper
+from sqlalchemy import create_engine
+
 app = Flask(__name__)
+engine = create_engine("sqlite:///database.db")
+Session = sessionmaker(engine)
+session = Session()
 
 @app.route("/data")
-def hello():
-  return {
-    "test" : "test"
-  }
+def data():
+  # Helper function to handle request arguments
+  def handle_lang(lang):
+    # Get all flashcard IDs for a given language, map to get first (only) element of tuple
+    lang_ids = list(map(lambda x: x[0], session.query(Flashcard.flashcardID).filter_by(languageCode=lang).all()))
+    return lang_ids
 
+  def handle_id(id):
+    # Fetch flashcard with given ID
+    card = session.query(Flashcard).filter_by(flashcardID=id).first()
+    # Get list of column names for the Flashcard class
+    columns = [c.key for c in class_mapper(card.__class__).columns]
+    # Parse the returned object into a dictionary so flask can serialize it
+    return dict((c, getattr(card, c)) for c in columns)
 
-#TODO we could use the flask_login module to track user session, and ensure some pages are only accessible if user has logged in.
-
-#this will be the landing page of the website, we can have information about the web app and links to login and registration
-@app.route("/")
-def index():
-  pass
-
-
-@app.route("/login",  methods=["GET", "POST"])
-def login():
-  #TODO create a login form, possibly using the forms module flask can provide. this route will be for the login
-  #TODO authenticate user, and if autheticated then update the user session appropriately
-
-  #if the user has been authenticated already (session is active)
-  if current_user.is_authenticated:
-    return redirect(url_for('home'))
-
-  
-  pass
-
-@app.route("/logout")
-def logout():
-  logout_user()
-  return redirect(url_for('login'))
-
-@app.route("/register",  methods=["GET", "POST"])
-def register():
-  #TODO just like the login route. 
-  pass
-
-#this will be the home page for the user when they log in
-@app.route("/home")
-def home():
-  #TODO get session information (user details, and the subjects they take), generate flash cards here
-  pass
-
-#function adds a specific card to favourites
-@app.route("/add_favourite/<int:card_id>", methods=["GET", "POST"])
-def add_favourite(post_id):
-  #TODO add the card to database appropriately
-  pass
-
-#this page will show all the favourite cards of a certain user
-@app.route("/favourites",  methods=["GET", "POST"])
-def favourites():
-  pass
-  
-
-
+  actions = {'lang': handle_lang, 'id': handle_id}
+  for (key, value) in request.args.items():
+    if key in actions:
+      return actions[key](value)
 
 
 if __name__ == "__main__":
   app.run()
-
