@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300;400;500&display=swap');
 .card{
     background-color: rgb(241, 237, 237);
     height: 65vh;
-    /* width: 40vh; */
     aspect-ratio: 2/3;
     border-radius: 20px;
     box-shadow: -5px 5px 20px 0px rgba(0,0,0,0.15);
@@ -16,6 +16,8 @@
     font-weight: 600;
     padding: 0;
     text-align: center;
+    justify-self: center;
+    align-self: center;
     text-shadow: 0px 0px 10px rgba(0,0,0,0.15);
 }
 .hr{
@@ -24,4 +26,20 @@
     background-color: #000000;
     align-self: center;
     margin-top: 30px;
+}
+.exampleText{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    align-self: center;
+    margin-top: 25px;
+    font-size: 15px;
+}
+.cardImage{
+    height: 25%;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    border: 3px solid black;
 }

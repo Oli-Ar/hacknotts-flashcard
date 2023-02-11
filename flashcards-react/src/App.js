@@ -11,15 +11,25 @@ function App() {
         programming: "",
     });
 
+    const [allCardIds, setAllCardIds] = useState([])
+    const [currentCard, setCurrentCard] = useState({})
+    const [nextCard, setNextCard] = useState({})
+
+    const sampleCard =
+      {
+        engText: "Hello",
+        esText: "Hola",
+        example: "Hola, como estas?",
+        image: "https://t3.ftcdn.net/jpg/03/28/77/18/360_F_328771873_4BLjs8Trc7aUmoeUmFmtLAjJaVGCnlmi.webp"
+      }
+
     useEffect(() => {
       // Using fetch to fetch the api from 
       // flask server it will be redirected to proxy
-      fetch("/data").then((res) =>
+      fetch("/data?lang=es").then((res) =>
           res.json().then((data) => {
               // Setting a data from api
-              setdata({
-                test: data.test
-              });
+              setAllCardIds(() => data);
           })
       );
     }, []);
@@ -28,7 +38,7 @@ function App() {
     <div className="App">
         <Navbar className="Nav" /> {data.test}
         <div className="mainContent">
-          <Flashcard className="Flashcard" />
+          <Flashcard className="Flashcard" card={sampleCard}/>
         </div>
         
     </div>
