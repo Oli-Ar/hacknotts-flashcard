@@ -1,13 +1,13 @@
 # from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, DateTime, String, Integer, ForeignKey, Boolean, func
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Boolean, Column, create_engine, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+
 import hashlib
 import secrets
 from fetch_card import Card
 from pathlib import Path
+from os import environ
 
 # create the database interface
 Base = declarative_base()
@@ -104,8 +104,8 @@ class Course(Base):
 
 
 # put some data into the tables
-def dbinit():
-    engine = create_engine("sqlite:///database.db")
+def dbinit(path):
+    engine = create_engine(f"sqlite:///{path}")
     Base.metadata.create_all(engine)
     Session = sessionmaker(engine)
     session = Session()
@@ -152,6 +152,7 @@ def dbinit():
         session.close()
 
 if __name__ == "__main__":
-    path = Path('./database.db')
-    if path.is_file():
-        dbinit()
+    path = Path(environ["VIRTUAL_ENV"]).parent / "flask-backend/database.db"
+    print(path)
+    if not path.is_file():
+        dbinit(path)
