@@ -22,5 +22,5 @@
 /flashcards-react/yarn-debug.log*
 /flashcards-react/yarn-error.log*
 
-# python
-/flask-backend/env
+# Python
+/env
