@@ -30,6 +30,7 @@ function App() {
           res.json().then((data) => {
               // Setting a data from api
               setAllCardIds(() => data);
+              console.log(currentCard);
           })
       );
     }, []);

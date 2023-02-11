@@ -6,8 +6,12 @@ from flask_login import current_user, logout_user
 from sqlalchemy.orm import sessionmaker, class_mapper
 from sqlalchemy import create_engine
 
+from pathlib import Path
+from os import environ
+
 app = Flask(__name__)
-engine = create_engine("sqlite:///database.db")
+path = Path(environ["VIRTUAL_ENV"]).parent / "flask-backend/database.db"
+engine = create_engine(f"sqlite:///{path}")
 Session = sessionmaker(engine)
 session = Session()
 
@@ -29,9 +33,9 @@ def data():
 
   actions = {'lang': handle_lang, 'id': handle_id}
   for (key, value) in request.args.items():
+    print(key, value)
     if key in actions:
       return actions[key](value)
-
 
 if __name__ == "__main__":
   app.run()
