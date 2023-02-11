@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from "react"
-import Header from "./components/Header.js"
+import Navbar from "./components/Navbar"
+import Flashcard from "./components/Flashcard"
 
 function App() {
     const [data, setdata] = useState({
@@ -25,9 +26,11 @@ function App() {
   
   return (
     <div className="App">
-      <header className="App-header">
-        <Header /> {data.test}
-      </header>
+        <Navbar className="Nav" /> {data.test}
+        <div className="mainContent">
+          <Flashcard className="Flashcard" />
+        </div>
+        
     </div>
   );
 }
