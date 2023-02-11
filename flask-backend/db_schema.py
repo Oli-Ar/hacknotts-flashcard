@@ -156,3 +156,5 @@ if __name__ == "__main__":
     print(path)
     if not path.is_file():
         dbinit(path)
+    else:
+        print("Database already exists.")
