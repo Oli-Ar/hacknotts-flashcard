@@ -105,7 +105,7 @@ class Course(Base):
 
 # put some data into the tables
 def dbinit():
-    engine = create_engine("sqlite:///database.db")
+    engine = create_engine("sqlite:///./database.db")
     Base.metadata.create_all(engine)
     Session = sessionmaker(engine)
     session = Session()
@@ -153,5 +153,7 @@ def dbinit():
 
 if __name__ == "__main__":
     path = Path('./database.db')
-    if path.is_file():
+    if not path.is_file():
         dbinit()
+    else:
+        print("db already exists")
