@@ -25,4 +25,4 @@
 # Python
 /env
 /flask-backend/database.db
-
+/flask-backend/__pycache__/
