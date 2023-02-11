@@ -28,3 +28,6 @@
 
 #test files
 /flask-backend/pythonTestThing.py
+
+#database
+/flask-backend/database.db
