@@ -151,7 +151,6 @@ def dbinit(path):
 
 if __name__ == "__main__":
     path = Path(environ["VIRTUAL_ENV"]).parent / "flask-backend/database.db"
-    print(path)
     if not path.is_file():
         dbinit(path)
     else:
