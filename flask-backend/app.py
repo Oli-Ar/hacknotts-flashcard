@@ -6,8 +6,12 @@ from flask_login import current_user, logout_user
 from sqlalchemy.orm import sessionmaker, class_mapper
 from sqlalchemy import create_engine
 
+from os import environ
+from pathlib import Path
+
 app = Flask(__name__)
-engine = create_engine("sqlite:///database.db")
+path = Path(environ["VIRTUAL_ENV"]).parent / "flask-backend/database.db"
+engine = create_engine(f"sqlite:///{path}")
 Session = sessionmaker(engine)
 session = Session()
 
