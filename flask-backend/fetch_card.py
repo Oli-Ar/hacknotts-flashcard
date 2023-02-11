@@ -9,7 +9,7 @@ GIS = GoogleImagesSearch(os.environ['GOOGLE_API_KEY'], os.environ['GOOGLE_SEARCH
 class Card:
     def __init__(self, word, origin, target):
         self.origin = word
-        self.target, self.pronounciation = self.get_word_data(word) 
+        self.target, self.pronounciation = self.get_word_data(word)
         self.image_url = self.get_image(self.target)
         self.lang = f"{origin}-{target}"
 

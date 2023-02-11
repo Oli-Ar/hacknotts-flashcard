@@ -6,6 +6,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import hashlib
 import secrets
+from fetch_card import Card
+from pathlib import Path
 
 # create the database interface
 Base = declarative_base()
@@ -13,6 +15,7 @@ Base = declarative_base()
 # a model of a user for the database
 class User(Base):
     __tablename__='users'
+    __table_args__ = {'extend_existing': True}
 
     userID = Column(Integer, primary_key=True)
     username = Column(String(30), unique=True, nullable = False)
@@ -29,7 +32,8 @@ class User(Base):
 
 
 class Flashcard(Base):
-    __tablename__='users'
+    __tablename__='flashcards'
+    __table_args__ = {'extend_existing': True}
 
     flashcardID = Column(Integer, primary_key=True)
     languageCode = Column(String(2), nullable = False)
@@ -41,15 +45,16 @@ class Flashcard(Base):
     isUserCreated = Column(Boolean)
     imageLink = Column(String(50))
 
-    def __init__(self,languageCode, englishContent, languageContent, exampleUse, phoneticText, phoneticAudioLink, isUserCreated, imageLink):
+    def __init__(self, languageCode, languageContent, isUserCreated=False, phoneticText=None, exampleUse=None):
+        cardCreate = Card(languageContent, languageCode, "en")
         self.languageCode = languageCode
-        self.englishContent = englishContent
+        self.englishContent = cardCreate.target
         self.languageContent = languageContent
         self.exampleUse = exampleUse
         self.phoneticText = phoneticText
-        self.phoneticAudioLink = phoneticAudioLink
+        self.phoneticAudioLink = cardCreate.pronounciation
         self.isUserCreated = isUserCreated
-        self.imageLink = imageLink
+        self.imageLink = cardCreate.image_url
     
 
 
@@ -57,6 +62,7 @@ class Flashcard(Base):
 # it refers to a list
 class UserCards(Base):
     __tablename__='user_cards'
+    __table_args__ = {'extend_existing': True}
 
     userCardID = Column(Integer, primary_key=True)
 
@@ -72,7 +78,7 @@ class UserCards(Base):
     isFavourite = Column(Boolean, nullable=False)
     lastEncountered = Column(DateTime)
 
-    def __init__(self, userID, flashcardID, comment, correctAnswers, totalEncountered, isFavourite, lastEncountered):
+    def __init__(self, userID, flashcardID, comment='', correctAnswers=0, totalEncountered=0, isFavourite=False, lastEncountered=None):
         self.userID = userID
         self.flashcardID = flashcardID
         self.comment = comment
@@ -83,6 +89,7 @@ class UserCards(Base):
 
 class Course(Base):
     __tablename__='courses'
+    __table_args__ = {'extend_existing': True}
 
     courseID = Column(Integer, primary_key=True)
 
@@ -98,7 +105,7 @@ class Course(Base):
 
 # put some data into the tables
 def dbinit():
-    engine = create_engine("sqlite:///foo.db")
+    engine = create_engine("sqlite:///database.db")
     Base.metadata.create_all(engine)
     Session = sessionmaker(engine)
     session = Session()
@@ -114,9 +121,37 @@ def dbinit():
         User("Oliver", hashlib.sha256("Oliver".encode()).hexdigest(), secrets.token_hex(16), "Oliver@gmail.com"),
         User("Raees", hashlib.sha256("Raees".encode()).hexdigest(), secrets.token_hex(16), "Raees@gmail.com")
         ]
-    
+
+    card_list = [
+        Flashcard("es", "hola"),
+        Flashcard("es", "cómo estás", True, "komo estas", "¿Cómo estás?"),
+        Flashcard("es", "buenos días", True, None, "Buenos días, ¿cómo estás?"),
+        Flashcard("es", "buenas tardes", False)
+    ]
+
+    user_card_list = [
+        UserCards(1, 2, "it says How are you?"),
+        UserCards(1, 3, "Good morning"),
+        UserCards(1, 4, "i think its Good afternoon"),
+        UserCards(2, 1, "this was easy"),
+        UserCards(2, 2)
+    ]
+
+    course_list = [
+        Course(1, "es"),
+        Course(2, "es")
+    ]
+
     try:
         session.add_all(user_list)
+        session.add_all(card_list)
+        session.add_all(user_card_list)
+        session.add_all(course_list)
         session.commit()
     finally:
         session.close()
+
+if __name__ == "__main__":
+    path = Path('./database.db')
+    if path.is_file():
+        dbinit()
