@@ -124,7 +124,15 @@ def dbinit(path):
         Flashcard("es", "hola"),
         Flashcard("es", "cómo estás", True, "komo estas", "¿Cómo estás?"),
         Flashcard("es", "buenos días", True, None, "Buenos días, ¿cómo estás?"),
-        Flashcard("es", "buenas tardes", False)
+        Flashcard("es", "buenas tardes", False),
+        Flashcard("es", "gracias", False, "gra-see-yas"),
+        Flashcard("fr", "Bonjour", False, "bon-zhour"),
+        Flashcard("fr", "Au revoir", True),
+        Flashcard("fr", "Merci", False, "mer-si"),
+        Flashcard("de", "Guten Tag", False),
+        Flashcard("de", "Danke", False),
+        Flashcard("ar", "Habibi", False),
+        Flashcard("ar", "Shukran", False, "shook-run")
     ]
 
     user_card_list = [
@@ -132,12 +140,15 @@ def dbinit(path):
         UserCards(1, 3, "Good morning"),
         UserCards(1, 4, "i think its Good afternoon"),
         UserCards(2, 1, "this was easy"),
-        UserCards(2, 2)
     ]
 
     course_list = [
         Course(1, "es"),
-        Course(2, "es")
+        Course(2, "es"),
+        Course(3, "ar"),
+        Course(3, "de"),
+        Course(4, "de"),
+        Course(5, "es"),
     ]
 
     try:
