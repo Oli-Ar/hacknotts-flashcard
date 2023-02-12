@@ -43,3 +43,28 @@
     border-radius: 20px;
     border: 3px solid black;
 }
+
+.audio{
+    margin-top: 1vh;
+    border: none;
+    background-color: transparent;
+    align-self: center;
+    height: 8vh;
+    width: 8vh;
+}
+
+.audio:hover{
+    border: none;
+    background-color: transparent;
+}
+
+.audioImage{
+    align-self: center;
+    height: 90%;
+    object-fit: cover;
+    cursor:cell;
+}
+
+.audioImage:hover{
+    height: 95%;
+}
