@@ -11,16 +11,29 @@ function App() {
     useEffect(() => {
       // Using fetch to fetch the api from 
       // flask server it will be redirected to proxy
-      if (allCardIds.length === 0) {
-        fetch("/data?lang=es").then(res => {
-            res.json().then(idList => setAllCardIds(() => idList)).catch(e => console.log(e));
-        });
-      }
+      fetch("/data?lang=es").then(res => {
+          if (res.ok) {
+            res.json().then(idList => {
+              setAllCardIds(idList);
+              getCard(idList);
+            }).catch(e => console.error(e));
+          } else {
+            console.error(res.statusText);
+          }
+      });
+    }, []);
 
-      fetch(`/data?id=${allCardIds[3]}`).then(res => {
-        res.json().then(idObj => setCurrentCard(() => idObj)).catch(e => console.log(e))
-      })
-    }, [allCardIds]);
+    const getCard = cards => {
+      [[0, setCurrentCard], [1, setNextCard]].forEach(a => {
+        fetch(`/data?id=${cards[a[0]]}`).then(res => { 
+          if (res.ok) {
+            res.json().then(idObj => a[1](idObj)).catch(e => console.error(e));
+          } else {
+            console.error(res.statusText);
+          } 
+        });
+      });
+    }
   
   return (
     <div className="App">
