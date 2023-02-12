@@ -1,19 +1,19 @@
 from db_schema import Flashcard, User, UserCards, Course
-
 from flask import Flask, request, jsonify
 from flask_login import current_user, logout_user
-
+from flask_cors import CORS
 from sqlalchemy.orm import sessionmaker, class_mapper
 from sqlalchemy import create_engine
-
 from os import environ
 from pathlib import Path
 import hashlib
 import datetime
-
-import jwt
-
+from authlib.jose import jwt
+import time
+  
 app = Flask(__name__)
+CORS(app)
+
 path = Path(environ["VIRTUAL_ENV"]).parent / "flask-backend/database.db"
 engine = create_engine(f"sqlite:///{path}")
 Session = sessionmaker(engine)
@@ -43,10 +43,21 @@ def data():
 
 
 
-secretKey = 'FgG_mB7PEEqceDtl8O-Zdw'
+jwk = {
+  "crv": "P-256",
+  "kty": "EC",
+  "alg": "ES256",
+  "use": "sig",
+  "kid": "a32fdd4b146677719ab2372861bded89",
+  "d": "5nYhggWQzfPFMkXb7cX2Qv-Kwpyxot1KFwUJeHsLG_o",
+  "x": "-uTmTQCbfm2jcQjwEa4cO7cunz5xmWZWIlzHZODEbwk",
+  "y": "MwetqNLq70yDUnw-QxirIYqrL-Bpyfh4Z0vWVs_hWCM"
+}
 
-@app.route('/login', methods=['POST'])
-def login():
+header = {"alg": "ES256"}
+
+@app.route('/Login', methods=['POST'])
+def Login():
     data = request.get_json()
     inputUsername = data.get('user')
     inputPassword = data.get('pwd')
@@ -69,14 +80,17 @@ def login():
     # If the username and password are correct, generate a JWT token
     # Generate a JSON Web Token (JWT) for the user
     payload = {
-        'sub': inputUsername,
-        'iat': datetime.datetime.utcnow(),
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-    }
-    token = jwt.encode(payload, secretKey, algorithm='HS256')
+    "iss": "https://LocalHost:5000",
+    "aud": "api1",
+    "sub": inputUsername,
+    "exp": int(time.time()) + 3600,
+    "iat": int(time.time())
+}
+    token = jwt.encode(header, payload, jwk)
+    response = jsonify({'token': token.decode('utf-8')})
+    response.headers['Access-Control-Allow-Origin'] = '*' # This is a hack to allow CORS
 
-
-    return jsonify({'token': token.decode('utf-8')})
+    return response
 
 
 

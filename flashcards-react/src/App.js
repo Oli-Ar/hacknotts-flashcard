@@ -1,36 +1,16 @@
-import './App.css';
-import React, { useState, useEffect } from "react"
-import Navbar from "./components/Navbar"
-import Flashcard from "./components/Flashcard"
+import { useRef, useState, useEffect, createContext } from "react";
+import Login from './Login';
+
+export const TokenContext = createContext(null);
 
 function App() {
-    const [allCardIds, setAllCardIds] = useState([])
-    const [currentCard, setCurrentCard] = useState({})
-    const [nextCard, setNextCard] = useState({})
 
-    useEffect(() => {
-      // Using fetch to fetch the api from 
-      // flask server it will be redirected to proxy
-      if (allCardIds.length === 0) {
-        fetch("/data?lang=es").then(res => {
-            res.json().then(idList => setAllCardIds(() => idList)).catch(e => console.log(e));
-        });
-      }
-
-      fetch(`/data?id=${allCardIds[3]}`).then(res => {
-        res.json().then(idObj => setCurrentCard(() => idObj)).catch(e => console.log(e))
-      })
-    }, [allCardIds]);
-  
   return (
-    <div className="App">
-        <Navbar className="Nav" />
-        <div className="mainContent">
-          <Flashcard className="Flashcard" card={currentCard}/>
-        </div>
-        
-    </div>
+    <main className="App">
+      <Login />
+    </main>
   );
 }
+
 
 export default App;
