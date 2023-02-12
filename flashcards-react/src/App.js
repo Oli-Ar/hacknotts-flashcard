@@ -34,6 +34,7 @@ function App() {
           if (res.ok) {
             res.json().then(idList => {
               allCardIdsRef.current = idList;
+              console.log(idList)
               setAllCardIds(idList);
               getCard(idList, idList.length);
             }).catch(e => console.error(e));

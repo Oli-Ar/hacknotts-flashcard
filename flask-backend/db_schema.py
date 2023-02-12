@@ -7,6 +7,8 @@ from fetch_card import Card
 from pathlib import Path
 from os import environ
 
+from fetch_card import Card
+
 # create the database interface
 Base = declarative_base()
 
@@ -44,7 +46,14 @@ class Flashcard(Base):
     imageLink = Column(String(50))
 
     def __init__(self, languageCode, languageContent, isUserCreated=False, phoneticText=None, exampleUse=None):
-        cardCreate = Card(languageContent, languageCode, "en")
+        cardCreate = None
+        try:
+            cardCreate = Card(languageContent, languageCode, "es")
+        except Exception as e:
+            return None
+        if cardCreate is None or cardCreate.target is None or cardCreate.pronounciation is None or cardCreate.image_url is None:
+            return None
+        print(cardCreate)
         self.languageCode = languageCode
         self.englishContent = cardCreate.target
         self.languageContent = languageContent
@@ -120,12 +129,13 @@ def dbinit(path):
         User("Raees", hashlib.sha256("Raees".encode()).hexdigest(), secrets.token_hex(16), "Raees@gmail.com")
         ]
 
-    card_list = [
-        Flashcard("es", "hola"),
-        Flashcard("es", "cómo estás", True, "komo estas", "¿Cómo estás?"),
-        Flashcard("es", "buenos días", True, None, "Buenos días, ¿cómo estás?"),
-        Flashcard("es", "buenas tardes", False)
-    ]
+
+    card_list = []
+    with open("words.csv", "r") as file:
+        for line in file.readlines():
+          flashcard = Flashcard(line.split(";")[1])
+          if flashcard is not None and flashcard.languageCode is not None:
+            card_list.append(flashcard)
 
     user_card_list = [
         UserCards(1, 2, "it says How are you?"),
