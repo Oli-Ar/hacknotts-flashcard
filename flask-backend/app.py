@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 from os import environ
 from pathlib import Path
 import hashlib
+import secrets
 import datetime
 from authlib.jose import jwt
 import time
@@ -92,6 +93,34 @@ def Login():
 
     return response
 
+
+@app.route('/Register', methods=['POST'])
+def Register():
+  print("balls")
+  data = request.get_json()
+  inputUsername = data.get('user')
+  inputPassword = data.get('pwd')
+  inputEmail = data.get('email')
+
+  existingUser = session.query(User).filter_by(username=inputUsername).first()
+  if existingUser is not None:
+    return 'Username already exists', 400
+
+  passSalt = secrets.token_hex(16)
+  passHash = hashlib.sha256((inputPassword+passSalt).encode()).hexdigest()
+
+  newUser = User(username=inputUsername, passwordHash=passHash, passwordSalt=passSalt, email=inputEmail)
+  session.add(newUser)
+  session.commit()
+  return {"msg": "User created successfully"}, 200
+
+  
+
+
+
+  
+
+  
 
 
 

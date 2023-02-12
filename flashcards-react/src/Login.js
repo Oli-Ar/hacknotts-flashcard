@@ -5,7 +5,7 @@ import "./styles.css";
 
 
 
-export default function Login() {
+export default function Login(props) {
     const userRef = useRef();
     const errRef = useRef();
 
@@ -40,6 +40,7 @@ export default function Login() {
             }
             const data = await response.json();
             setToken(data.token);
+            localStorage.setItem("token", data.token)
             console.log(token);
             setSuccess(true);
 
@@ -82,13 +83,13 @@ export default function Login() {
                             value={pwd}
                             required
                         />
-                        <button>Sign In</button>
+                        <a>Sign In</a>
                     </form>
                     <p>
                         Need an Account?<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="/Register">Sign Up</a>
+                            <button onClick={props.registerLink}>Sign Up</button>
                         </span>
                     </p>
                 </section>

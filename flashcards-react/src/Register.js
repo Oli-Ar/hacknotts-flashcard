@@ -10,6 +10,7 @@ const EMAIL_REGEX = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,4}$/;
 const REGISTER_URL = '/Register';
 
 const Register = () => {
+
     const userRef = useRef();
     const errRef = useRef();
   
@@ -63,13 +64,14 @@ const Register = () => {
             return;
         }
         try {
-            const response = await fetch('/Login', {
+            const response = await fetch('/Register', {
                 method: 'POST',
-                body: JSON.stringify({ user, pwd, matchPwd, email }),
+                body: JSON.stringify({ user, pwd, email }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
                 });
+
             // TODO: remove console.logs before deployment
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response))
@@ -96,7 +98,7 @@ const Register = () => {
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="#">Sign In</a>
+                        <a href="/Login">Sign In</a>
                     </p>
                 </section>
             ) : (
@@ -139,6 +141,7 @@ const Register = () => {
                             type="password"
                             id="password"
                             onChange={(e) => setPwd(e.target.value)}
+                            autoComplete="off"
                             value={pwd}
                             required
                             aria-invalid={validPwd ? "false" : "true"}
@@ -164,6 +167,7 @@ const Register = () => {
                             id="confirm_pwd"
                             onChange={(e) => setMatchPwd(e.target.value)}
                             value={matchPwd}
+                            autoComplete="off"
                             required
                             aria-invalid={validMatch ? "false" : "true"}
                             aria-describedby="confirmnote"
@@ -174,8 +178,32 @@ const Register = () => {
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
+
+
+
+                        <label htmlFor="email">
+                            Email address:
+                            <FontAwesomeIcon icon={faCheck} className={validEmail && email ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                            autoComplete="off"
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setMatchFocus(true)}
+                            onBlur={() => setMatchFocus(false)}
+                        />
+                        <p id="confirmnote" className={matchFocus && !validEmail ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            must be a valid email
+                        </p>
   
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                        <button disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false}>Sign Up</button>
                     </form>
                     <p>
                         Already registered?<br />
