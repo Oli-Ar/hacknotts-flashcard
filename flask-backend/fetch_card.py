@@ -28,6 +28,9 @@ class Card:
         subfolder = re.match(r"^(bix|gg|[^a-zA-Z]+|.)", audio_code).group(1)
         pronounciation = f"https://media.merriam-webster.com/audio/prons/es/me/mp3/{subfolder}/{audio_code}.mp3"
         return translation, pronounciation
+        #because we use dictionary api, we can only translate one word
+        # in the future, you could impleement using a idfferent api to translate sentences as you would
+        # not need to get defeinitions for sentences unlike words.
     
     @staticmethod
     def get_image(word):

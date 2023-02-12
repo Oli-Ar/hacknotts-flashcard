@@ -124,15 +124,15 @@ def dbinit(path):
 
     card_list = [
         Flashcard("es", "hola"),
-        Flashcard("es", "cómo estás", True, "komo estas", "¿Cómo estás?"),
-        Flashcard("es", "buenos días", True, None, "Buenos días, ¿cómo estás?"),
-        Flashcard("es", "buenas tardes", False)
+        Flashcard("es", "cómo", True, "komo", "¿Cómo estás?"),
+        Flashcard("es", "buenos", True, None, "Buenos días"),
+        Flashcard("es", "mala", False)
     ]
 
     user_card_list = [
-        UserCards(1, 2, "it says How are you?"),
-        UserCards(1, 3, "Good morning"),
-        UserCards(1, 4, "i think its Good afternoon"),
+        UserCards(1, 2, "i cheated to find this one tbh"),
+        UserCards(1, 3, "Good"),
+        UserCards(1, 4, "literally never seen this in my life"),
         UserCards(2, 1, "this was easy"),
         UserCards(2, 2)
     ]
