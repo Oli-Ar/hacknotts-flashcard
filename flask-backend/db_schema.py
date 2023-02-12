@@ -124,15 +124,15 @@ def dbinit(path):
 
     card_list = [
         Flashcard("es", "hola"),
-        Flashcard("es", "cómo", True, "komo", "¿Cómo estás?"),
-        Flashcard("es", "buenos", True, None, "Buenos días"),
-        Flashcard("es", "mala", False)
+        Flashcard("es", "cómo estás", True, "komo estas", "¿Cómo estás?"),
+        Flashcard("es", "buenos días", True, None, "Buenos días, ¿cómo estás?"),
+        Flashcard("es", "buenas tardes", False)
     ]
 
     user_card_list = [
-        UserCards(1, 2, "i cheated to find this one tbh"),
-        UserCards(1, 3, "Good"),
-        UserCards(1, 4, "literally never seen this in my life"),
+        UserCards(1, 2, "it says How are you?"),
+        UserCards(1, 3, "Good morning"),
+        UserCards(1, 4, "i think its Good afternoon"),
         UserCards(2, 1, "this was easy"),
         UserCards(2, 2)
     ]
@@ -153,7 +153,6 @@ def dbinit(path):
 
 if __name__ == "__main__":
     path = Path(environ["VIRTUAL_ENV"]).parent / "flask-backend/database.db"
-    print(path)
     if not path.is_file():
         dbinit(path)
     else:
