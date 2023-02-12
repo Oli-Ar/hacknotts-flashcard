@@ -110,16 +110,27 @@ def dbinit(path):
     Session = sessionmaker(engine)
     session = Session()
 
+    feliciaSalt = str(secrets.token_hex(16))
+    petraSalt = str(secrets.token_hex(16))
+    johannesSalt = str(secrets.token_hex(16))
+    bobSalt = str(secrets.token_hex(16))
+    joSalt =str(secrets.token_hex(16))
+    artemiySalt = str(secrets.token_hex(16))
+    yahiaSalt = str(secrets.token_hex(16))
+    oliverSalt = str(secrets.token_hex(16))
+    raeesSalt = str(secrets.token_hex(16))
+
+
     user_list = [
-        User("Felicia", hashlib.sha256("Felicia".encode()).hexdigest(), secrets.token_hex(16), "felicia@gmail.com"),
-        User("Petra", hashlib.sha256("Petra".encode()).hexdigest(), secrets.token_hex(16), "petra@gmail.com"),
-        User("Johannes", hashlib.sha256("Johannes".encode()).hexdigest(), secrets.token_hex(16), "johannes@gmail.com"),
-        User("Bob", hashlib.sha256("Bob".encode()).hexdigest(), secrets.token_hex(16), "Bob@gmail.com"),
-        User("Jo", hashlib.sha256("Jo".encode()).hexdigest(), secrets.token_hex(16), "Jo@gmail.com"),
-        User("Artemiy", hashlib.sha256("Artemiy".encode()).hexdigest(), secrets.token_hex(16), "Artemiy@gmail.com"),
-        User("Yahia", hashlib.sha256("Yahia".encode()).hexdigest(), secrets.token_hex(16), "Yahia@gmail.com"),
-        User("Oliver", hashlib.sha256("Oliver".encode()).hexdigest(), secrets.token_hex(16), "Oliver@gmail.com"),
-        User("Raees", hashlib.sha256("Raees".encode()).hexdigest(), secrets.token_hex(16), "Raees@gmail.com")
+        User("Felicia", hashlib.sha256(("Felicia"+feliciaSalt).encode()).hexdigest(), feliciaSalt, "felicia@gmail.com"),
+        User("Petra", hashlib.sha256(("Petra"+petraSalt).encode()).hexdigest(), petraSalt, "petra@gmail.com"),
+        User("Johannes", hashlib.sha256(("Johannes"+johannesSalt).encode()).hexdigest(), johannesSalt, "johannes@gmail.com"),
+        User("Bob", hashlib.sha256(("Bob"+bobSalt).encode()).hexdigest(), bobSalt, "Bob@gmail.com"),
+        User("Jo", hashlib.sha256(("Jo"+joSalt).encode()).hexdigest(), joSalt, "Jo@gmail.com"),
+        User("Artemiy", hashlib.sha256(("Artemiy"+artemiySalt).encode()).hexdigest(), artemiySalt, "Artemiy@gmail.com"),
+        User("Yahia", hashlib.sha256(("Yahia"+yahiaSalt).encode()).hexdigest(), yahiaSalt, "Yahia@gmail.com"),
+        User("Oliver", hashlib.sha256(("Oliver"+oliverSalt).encode()).hexdigest(), oliverSalt, "Oliver@gmail.com"),
+        User("Raees", hashlib.sha256(("Raees"+raeesSalt).encode()).hexdigest(), raeesSalt, "Raees@gmail.com")
         ]
 
     card_list = [
