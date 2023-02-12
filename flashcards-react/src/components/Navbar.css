@@ -1,17 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400,500;1,300&display=swap');
 .nav--container{
     position: fixed;
     width: 100vw;
     height: 12vh;
-    background-color: #ec9212;
+    background-color: #d3800b;
     color: rgb(255, 255, 255);
     display: flex;
     padding: 0px;
     overflow: hidden;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
-    border-bottom: 3px solid rgb(81, 55, 0);
+    border-bottom: 5px solid rgb(81, 55, 0);
     /* border-radius: 0 0 10px 10px; */
 }
 .nav--titleText{
     margin-left: 20px;
     align-self: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }

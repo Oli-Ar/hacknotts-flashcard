@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,300&display=swap');
 .App {
   text-align: center;
   background-color: #ffc048;
@@ -13,4 +14,21 @@
   align-items: center;
   justify-content: center;
   margin-top: 15vh;
+  flex-direction: column;
+}
+.nextButton{
+  position: relative;
+  height: 10vh;
+  aspect-ratio: 2/1;
+  background-color: #ec9212;
+  border: none;
+  border-radius: 2vh;
+  margin-top: 3vh;
+  color: white;
+  box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+.buttonText{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.5vh;
 }
