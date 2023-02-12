@@ -27,6 +27,11 @@ function App() {
         <Navbar className="Nav" />
         <div className="mainContent">
           <Flashcard className="Flashcard" card={currentCard}/>
+          <button className="nextButton">
+            <div className="buttonText">
+              Next Card
+            </div>
+          </button>
         </div>
         
     </div>
