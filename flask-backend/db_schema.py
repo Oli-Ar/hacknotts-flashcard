@@ -142,12 +142,15 @@ def dbinit(path):
         UserCards(1, 3, "Good morning"),
         UserCards(1, 4, "i think its Good afternoon"),
         UserCards(2, 1, "this was easy"),
-        UserCards(2, 2)
     ]
 
     course_list = [
         Course(1, "es"),
-        Course(2, "es")
+        Course(2, "es"),
+        Course(3, "ar"),
+        Course(3, "de"),
+        Course(4, "de"),
+        Course(5, "es"),
     ]
 
     try:
