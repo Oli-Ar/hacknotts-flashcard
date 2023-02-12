@@ -2,6 +2,7 @@
 
 # dependencies
 /flashcards-react/node_modules
+/node_modules
 /flashcards-react/.pnp
 /flashcards-react/.pnp.js
 
