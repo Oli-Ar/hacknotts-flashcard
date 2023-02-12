@@ -7,6 +7,8 @@ export default function Navbar () {
             <h1 className="nav--titleText underline font-bold text-3xl">
                 Flashcards App
             </h1>
+            <div className="navhr"></div>
+            hello
         </nav>
     )
 }
