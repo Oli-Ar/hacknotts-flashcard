@@ -126,13 +126,13 @@ def dbinit(path):
         Flashcard("es", "buenos días", True, None, "Buenos días, ¿cómo estás?"),
         Flashcard("es", "buenas tardes", False),
         Flashcard("es", "gracias", False, "gra-see-yas"),
-        Flashcard("fr", "Bonjour", False, "bon-zhour"),
-        Flashcard("fr", "Au revoir", True),
-        Flashcard("fr", "Merci", False, "mer-si"),
-        Flashcard("de", "Guten Tag", False),
-        Flashcard("de", "Danke", False),
-        Flashcard("ar", "Habibi", False),
-        Flashcard("ar", "Shukran", False, "shook-run")
+        # Flashcard("fr", "Bonjour", False, "bon-zhour"),
+        # Flashcard("fr", "Au revoir", True),
+        # Flashcard("fr", "Merci", False, "mer-si"),
+        # Flashcard("de", "Guten Tag", False),
+        # Flashcard("de", "Danke", False),
+        # Flashcard("ar", "Habibi", False),
+        # Flashcard("ar", "Shukran", False, "shook-run")
     ]
 
     user_card_list = [

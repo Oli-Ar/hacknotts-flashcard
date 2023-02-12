@@ -7,22 +7,12 @@
     display: flex;
     padding: 0px;
     flex-direction: column;
+    z-index: 1;
+
 }
 .nav--titleText{
     margin-left: 0px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-size: 30px;
-}
-.nav--title{
-    display: flex;
-    width: 100vw;
-}
-.navhr{
-    height: 100px;
-    width: 100vw;
-    background-color: black;
-    z-index: 1;
-    margin-bottom: 1000px;
-    margin-top: 1000px;
+    font-size: 40px;
 }
